@@ -18,7 +18,7 @@ export default function HomeScreen({ navigation }: any) {
       `Importance: ${task.importance}\nUrgency: ${task.urgency}\nDifficulty: ${task.difficulty}\nStreak: ${task.streak}\nNext Due: ${task.nextDue.toDateString()}\nPriority Score: ${calculatePriority(task)}`,
       [
         { text: 'Close', style: 'cancel' },
-        { text: 'Edit', onPress: () => navigation.navigate('AddTask', { task }) }
+        { text: 'Edit', onPress: () => navigation.navigate('Newtask', { task }) }
       ]
     );
   };
@@ -97,9 +97,6 @@ export default function HomeScreen({ navigation }: any) {
 
   return (
     <View style={{ flex: 1, padding: 16 }}>
-      <Button mode="contained" onPress={() => navigation.navigate("AddTask", { reload: loadTasks })}>
-        Add Task
-      </Button>
       <SwipeListView
         ref={listRef}
         data={tasks.filter(task => task.id !== completingTaskId)}
