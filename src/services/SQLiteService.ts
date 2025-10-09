@@ -103,3 +103,18 @@ export const deleteTask = async (task: Task) => {
     [task.id]
   );
 };
+
+export const revertTaskCompletion = async (task: Task, previousState: { lastCompleted?: Date, streak: number, nextDue: Date }) => {
+  const database = await getDB();
+  await database.runAsync(
+    `UPDATE tasks 
+     SET lastCompleted = ?, streak = ?, nextDue = ?
+     WHERE id = ?;`,
+    [
+      previousState.lastCompleted?.getTime() || null, 
+      previousState.streak, 
+      previousState.nextDue.getTime(), 
+      task.id
+    ]
+  );
+};
